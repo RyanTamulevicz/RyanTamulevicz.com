@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{.Title}}</title>
+</head>
+<body>
+    <header>
+        <h1>{{.Name}}</h1>
+        <h3>{{.Role}}</h3>
+    </header>
+    <section id="contact">
+    <ul>
+        <li>{{.Phone}}</li>
+        <li>{{.Email}}</li>
+        <li>{{.Website}}</li>
+    </ul>
+    </section>
+    <section id="skills">
+    <ul>
+       {{range .Skills}} 
+        <li>{{.}}</li>
+       {{end}}
+    </ul>
+    </section>
+    <section id="education">
+        <ul>
+        {{range .Education}}
+            <li>{{.}}</li>
+        {{end}}
+        </ul>
+    </section>
+    <section id="summary">
+        {{.Summary}}
+    </section>
+    <section id="experience">
+        {{range .Experience}}
+            <ul>
+                <li>{{.Title}}</li>
+                <li>{{.Company}}</li>
+                <li>{{.Location}}</li>
+                <li>{{.Date}}</li>
+                <li>{{.Description}}</li>
+            </ul>
+            <br>
+        {{end}}
+    </section>
+    <section id="other">
+        {{.Other}}
+    </section>
+    <footer>
+        <!-- Footer content -->
+    </footer>
+</body>
+</html>
