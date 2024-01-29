@@ -35,8 +35,13 @@ func main() {
 		c.HTML(http.StatusOK, "resume.html", data)
 	})
 
-	log.Println("Starting server on :3001")
-	if err := r.Run(":3001"); err != nil {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // Default port if not specified
+	}
+
+	log.Println("Starting server on :" + port)
+	if err := r.Run(":" + port); err != nil {
 		log.Fatal("Unable to start server: ", err)
 	}
 }
