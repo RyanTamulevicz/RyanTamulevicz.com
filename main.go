@@ -20,16 +20,25 @@ func main() {
 	})
 
 	r.GET("/resume", func(c *gin.Context) {
-		file, err := os.Open("data.json")
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer file.Close()
-
 		data := gin.H{}
-		decoder := json.NewDecoder(file)
-		if err := decoder.Decode(&data); err != nil {
-			log.Fatal(err)
+		file, err := os.Open("data.json")
+
+		if err != nil {
+			resume := os.Getenv("RESUME")
+			if resume == "" {
+				log.Fatal("No data.json file and no RESUME environment variable set")
+			}
+
+			err := json.Unmarshal([]byte(resume), &data)
+			if err != nil {
+				log.Fatal(err)
+			}
+		} else {
+			defer file.Close()
+			decoder := json.NewDecoder(file)
+			if err := decoder.Decode(&data); err != nil {
+				log.Fatal(err)
+			}
 		}
 
 		c.HTML(http.StatusOK, "resume.html", data)
